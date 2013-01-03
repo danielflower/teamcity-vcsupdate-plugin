@@ -6,7 +6,7 @@
   <bean class="com.googlecode.vcsupdate.TeamCityController" autowire="constructor">
     <property name="controllerUri" value="/vcsupdate.html"/>
     <property name="viewName" value="jsp/default.jsp"/>
-    <property name="redirectUri" value="/admin/vcsRootsGlobal.html"/>
+    <property name="redirectUri" value="/admin/admin.html?item=vcsRoots"/>
   </bean>
 
 </beans>

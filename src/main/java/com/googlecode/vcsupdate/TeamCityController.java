@@ -182,8 +182,6 @@ public final class TeamCityController extends AbstractController {
     }
 
     public void setRedirectUri(String redirectUri) {
-        log("Setting redirect URI to " + redirectUri);
-        Thread.dumpStack();
         this.redirectUri = redirectUri;
     }
 
