@@ -138,6 +138,7 @@ public final class TeamCityController extends AbstractController {
             }
 
             // Redirect to the overview page
+            log("Redirecting to: " + redirectUri);
             return new ModelAndView(new RedirectView(redirectUri, true));
         }
 
@@ -181,6 +182,8 @@ public final class TeamCityController extends AbstractController {
     }
 
     public void setRedirectUri(String redirectUri) {
+        log("Setting redirect URI to " + redirectUri);
+        Thread.dumpStack();
         this.redirectUri = redirectUri;
     }
 
