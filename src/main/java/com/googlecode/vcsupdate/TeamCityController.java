@@ -14,23 +14,21 @@
 
 package com.googlecode.vcsupdate;
 
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import jetbrains.buildServer.controllers.AuthorizationInterceptor;
 import jetbrains.buildServer.serverSide.SBuildType;
 import jetbrains.buildServer.vcs.SVcsRoot;
 import jetbrains.buildServer.vcs.VcsManager;
 import jetbrains.buildServer.web.openapi.PluginDescriptor;
 import jetbrains.buildServer.web.openapi.WebControllerManager;
-
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.view.RedirectView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author Jon Vincent
@@ -55,10 +53,21 @@ public final class TeamCityController extends AbstractController {
         this.interceptor = interceptor;
         this.vcsManager = vcsManager;
         this.descriptor = descriptor;
+        log("Creating plugin");
     }
 
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            return getModelAndView(request, response);
+        } catch (Exception e) {
+            log("Error while running plugin: " + e);
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    private ModelAndView getModelAndView(HttpServletRequest request, HttpServletResponse response) {
         // Get all of the VCS roots specified in the request
         Set<SVcsRoot> roots = new LinkedHashSet<SVcsRoot>();
 
@@ -168,6 +177,10 @@ public final class TeamCityController extends AbstractController {
 
     public void setRedirectUri(String redirectUri) {
         this.redirectUri = redirectUri;
+    }
+
+    private void log(String message) {
+        System.out.println("VCSUPDATEPLUGIN: " + message);
     }
 
 }
