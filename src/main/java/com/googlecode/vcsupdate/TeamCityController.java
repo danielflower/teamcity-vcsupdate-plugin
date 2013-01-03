@@ -128,6 +128,7 @@ public final class TeamCityController extends AbstractController {
                 boolean defaultInterval = root.isUseDefaultModificationCheckInterval();
                 int interval = (defaultInterval ? -1 : root.getModificationCheckInterval());
                 root.setModificationCheckInterval(5);
+                log("Forcing check for " + selected.getName());
                 selected.forceCheckingForChanges();
                 if (defaultInterval) {
                     root.restoreDefaultModificationCheckInterval();
@@ -163,7 +164,11 @@ public final class TeamCityController extends AbstractController {
         // Return a simple view that explains how to use the tool
         String query = request.getQueryString();
         if (query != null) sampleUrl.append('&').append(query);
-        return new ModelAndView(viewName, "sampleUrl", response.encodeURL(sampleUrl.toString()));
+
+
+        String modelObject = response.encodeURL(sampleUrl.toString());
+        log("Creating modelview. View: " + viewName + " and model: " + modelObject);
+        return new ModelAndView(viewName, "sampleUrl", modelObject);
     }
 
     public void setControllerUri(String controllerUri) {
