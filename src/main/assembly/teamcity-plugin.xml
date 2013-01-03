@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<teamcity-plugin>
+  <info>
+    <name>vcsupdate</name>
+    <display-name>VCSUpdate</display-name>
+    <version>${project.version}</version>
+  </info>
+</teamcity-plugin>
