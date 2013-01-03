@@ -186,7 +186,7 @@ public final class TeamCityController extends AbstractController {
     }
 
     private void log(String message) {
-        System.out.println("VCSUPDATEPLUGIN: " + message);
+        //System.out.println("VCSUPDATEPLUGIN: " + message);
     }
 
 }
