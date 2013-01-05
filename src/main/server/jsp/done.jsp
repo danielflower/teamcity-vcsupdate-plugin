@@ -1,0 +1,1 @@
+Notified following VCS roots in TeamCity: ${updatedVCSRoots}

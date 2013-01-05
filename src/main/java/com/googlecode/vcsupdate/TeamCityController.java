@@ -22,10 +22,10 @@ import jetbrains.buildServer.web.openapi.PluginDescriptor;
 import jetbrains.buildServer.web.openapi.WebControllerManager;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
-import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -45,7 +45,7 @@ public final class TeamCityController extends AbstractController {
     private final PluginDescriptor descriptor;
 
     private String viewName = null;
-    private String redirectUri = null;
+    private String doneViewName = null;
 
     public TeamCityController(WebControllerManager controllerManager, AuthorizationInterceptor interceptor,
             VcsManager vcsManager, PluginDescriptor descriptor) {
@@ -102,6 +102,7 @@ public final class TeamCityController extends AbstractController {
 
         // Did we get a submitted form?
         if (!roots.isEmpty()) {
+            List<String> forcedVcsRootNames = new ArrayList<String>();
             // Iterate through the roots
             for (SVcsRoot root : roots) {
                 // Find the matching configurations
@@ -130,6 +131,8 @@ public final class TeamCityController extends AbstractController {
                 root.setModificationCheckInterval(5);
                 log("Forcing check for " + selected.getName());
                 selected.forceCheckingForChanges();
+                forcedVcsRootNames.add(root.getName());
+
                 if (defaultInterval) {
                     root.restoreDefaultModificationCheckInterval();
                 } else {
@@ -138,8 +141,8 @@ public final class TeamCityController extends AbstractController {
             }
 
             // Redirect to the overview page
-            log("Redirecting to: " + redirectUri);
-            return new ModelAndView(new RedirectView(redirectUri, true));
+            String modelObject = forcedVcsRootNames.toString();
+            return new ModelAndView(viewName, "updatedVCSRoots", modelObject);
         }
 
         // Build a sample URL
@@ -181,12 +184,12 @@ public final class TeamCityController extends AbstractController {
         this.viewName = descriptor.getPluginResourcesPath(viewName);
     }
 
-    public void setRedirectUri(String redirectUri) {
-        this.redirectUri = redirectUri;
+    public void setDoneViewName(String doneViewName) {
+        this.doneViewName = doneViewName;
     }
 
     private void log(String message) {
-        //System.out.println("VCSUPDATEPLUGIN: " + message);
+        System.out.println("VCSUPDATEPLUGIN: " + message);
     }
 
 }
