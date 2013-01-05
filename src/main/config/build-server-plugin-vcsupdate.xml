@@ -5,7 +5,7 @@
     <bean class="com.googlecode.vcsupdate.TeamCityController" autowire="constructor">
         <property name="controllerUri" value="/vcsupdate.html"/>
         <property name="viewName" value="jsp/default.jsp"/>
-        <property name="doneViewName" value="jsp/default.jsp"/>
+        <property name="doneViewName" value="jsp/done.jsp"/>
     </bean>
 
 </beans>
