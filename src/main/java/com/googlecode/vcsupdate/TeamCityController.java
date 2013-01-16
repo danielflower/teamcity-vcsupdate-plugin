@@ -142,7 +142,7 @@ public final class TeamCityController extends AbstractController {
 
             // Redirect to the done page
             String modelObject = forcedVcsRootNames.toString();
-            return new ModelAndView("jsp/done.jsp", "updatedVCSRoots", modelObject);
+            return new ModelAndView(doneViewName, "updatedVCSRoots", modelObject);
         }
 
         // Build a sample URL
@@ -172,7 +172,7 @@ public final class TeamCityController extends AbstractController {
 
         String modelObject = response.encodeURL(sampleUrl.toString());
         log("Creating modelview. View: " + viewName + " and model: " + modelObject);
-        return new ModelAndView(doneViewName, "sampleUrl", modelObject);
+        return new ModelAndView(viewName, "sampleUrl", modelObject);
     }
 
     public void setControllerUri(String controllerUri) {
@@ -185,7 +185,7 @@ public final class TeamCityController extends AbstractController {
     }
 
     public void setDoneViewName(String doneViewName) {
-        this.doneViewName = doneViewName;
+        this.doneViewName = descriptor.getPluginResourcesPath(doneViewName);
     }
 
     private void log(String message) {
