@@ -140,9 +140,9 @@ public final class TeamCityController extends AbstractController {
                 }
             }
 
-            // Redirect to the overview page
+            // Redirect to the done page
             String modelObject = forcedVcsRootNames.toString();
-            return new ModelAndView(viewName, "updatedVCSRoots", modelObject);
+            return new ModelAndView(doneViewName, "updatedVCSRoots", modelObject);
         }
 
         // Build a sample URL
