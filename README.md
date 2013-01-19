@@ -1,3 +1,6 @@
+Overview
+========
+
 VCSUpdate is a simple plugin for the TeamCity continuous integration server that
 allows for an efficient and flexible method of triggering new builds. Rather
 than poll the version control system (VCS) constantly, you can simply call a URL
@@ -11,7 +14,18 @@ Aside from the obvious benefit of reducing the load on your VCS (by eliminating
 constant checks for updates), VCSUpdate actually allows your build server to be
 more responsive, since it can be notified immediately whenever the code changes.
 
-HOW TO USE VCSUPDATE
+Credits
+=======
+
+This project is a fork of the vcsupdate plugin created by Jon Vincent for TeamCity
+7 support. The original project is hosted at http://code.google.com/p/vcsupdate/
+
+Note that this plugin will be obsolete when http://youtrack.jetbrains.com/issue/TW-23077
+is completed (probably TeamCity 8).
+
+How to use vcsupdate
+====================
+
 Once you have the plugin installed on your TeamCity server, simply configure
 your VCS server to request the vcsupdate.html page, and add parameters for each
 of the VCS roots that should be queried for changes. For example:
@@ -33,20 +47,21 @@ simply display some help text. However, when you make a POST request, if you
 don't specify any VCS roots, VCSUpdate will check for updates on ALL of your
 active VCS roots.
 
-HOW TO INSTALL VCSUPDATE
-Simply drop the vcsupdate.zip file into the plugins/ subdirectory of your
-TeamCity data directory, and restart TeamCity. It's important that you name the
-file vcsupdate.zip (when you download it from googlecode it has the version
-number, so you need to rename it).
+How to install vcsupdate
+========================
+
+Simply drop the [vcsupdate-2.0-teamcity-plugin.zip](http://danielflower.github.com/teamcity-vcsupdate-plugin/vcsupdate-2.0-teamcity-plugin.zip)
+file into the plugins/ subdirectory of your TeamCity data directory (.BuildServer/plugins),
+and restart TeamCity. Delete any existing vcsupdate*.zip files first.
 
 Once you've installed VCSUpdate, you'll probably want to change your TeamCity
 server configuration, and set the default VCS polling interval to something
 much larger (a reasonable value is 43200 to check twice a day).
 
-HOW TO BUILD VCSUPDATE
+How to build vcsupdate
+======================
+
 If you'd prefer to build VCSUpdate yourself, you'll need Maven 2.0.6 or higher.
 Just checkout the sources from googlecode, and run mvn assembly:assembly. That
 will build the project and put the vcsupdate.zip file in the the target/
-subdirectory. You can then copy it to your TeamCity plugins/ directory (note
-that you'll need to rename it since Maven also puts the version number in the
-filename).
+subdirectory. You can then copy it to your TeamCity plugins/ directory.

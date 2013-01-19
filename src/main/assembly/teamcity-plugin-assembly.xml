@@ -28,7 +28,7 @@ http://maven.apache.org/POM/4.0.0 ">
             <fileMode>0444</fileMode>
         </file>
         <file>
-            <source>README.txt</source>
+            <source>README.md</source>
             <fileMode>0444</fileMode>
         </file>
     </files>
